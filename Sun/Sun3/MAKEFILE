@@ -1,0 +1,30 @@
+SRC	= .
+SRCP	= $(SRC)/
+JOBS	= 1
+CPPHOME	= /home/daffy/owc++/sun3
+include ../build/sun.inc
+Objs	= $(OBJ)/config.o
+all: sun.make  $(OBJ)/sun3.time system.make io.make
+	make iotest.make
+	make systest.make
+$(OBJ)/sun3.time: $(Objs) 
+	ar r opsys.a $(Objs)
+	ranlib opsys.a
+	touch $(OBJ)/sun3.time
+fast:
+	make -f ../build/sun.mak &
+	make -f ../build/system.mak &
+	make -f ../build/io.mak &
+	make -f ../build/iotest.mak CPPHOME=$(CPPHOME) &
+	make -f ../build/systest.mak CPPHOME=$(CPPHOME) &
+sun.make:
+	make -f ../build/sun.mak
+system.make:
+	make -f ../build/system.mak
+io.make:
+	make -f ../build/io.mak
+iotest.make:
+	make -f ../build/iotest.mak CPPHOME=$(CPPHOME)
+systest.make:
+	make -f ../build/systest.mak CPPHOME=$(CPPHOME)
+$(OBJ)/config.o: $(SRC)/config.c

@@ -1,0 +1,10 @@
+-g -J.
+-J..\Include
+-J..\SRC\IOTest
+-J..\SRC\SYSTest
+-JDrv_cpp
+-J\scan\drv_cpp
+-I.
+-O -pcpu32 -Xp -c
+-H
+
